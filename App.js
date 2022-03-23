@@ -11,7 +11,10 @@ const App = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView edges={['bottom']} style={styles.block}>
-        <KeyboardAvoidingView style={styles.avoid}>
+        <KeyboardAvoidingView
+          // behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          behavior={Platform.select({ios: 'padding', android: undefined})}
+          style={styles.avoid}>
           <DateHead date={today} />
           <Empty />
           <AddTodo />

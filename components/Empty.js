@@ -9,7 +9,7 @@ const Empty = () => {
         style={styles.image}
         resizeMode="contain"
       />
-      <Text style={styles.description}>No Tarea!</Text>
+      <Text style={styles.description}>No Tarea</Text>
     </View>
   );
 };

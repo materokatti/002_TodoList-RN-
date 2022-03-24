@@ -1,12 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, KeyboardAvoidingView, Platform} from 'react-native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import AddTodo from './components/AddTodo';
 import DateHead from './components/DateHead';
 import Empty from './components/Empty';
+import TodoList from './components/TodoList';
 
 const App = () => {
   const today = new Date();
+
+  const [todos, setTodos] = useState([
+    {id: 1, text: 'Dribble', done: true},
+    {id: 2, text: 'Trapping', done: false},
+    {id: 3, text: 'Kick', done: false},
+  ]);
 
   return (
     <SafeAreaProvider>
@@ -16,7 +23,7 @@ const App = () => {
           behavior={Platform.select({ios: 'padding', android: undefined})}
           style={styles.avoid}>
           <DateHead date={today} />
-          <Empty />
+          {todos.length === 0 ? <Empty /> : <TodoList todos={todos} />}
           <AddTodo />
         </KeyboardAvoidingView>
       </SafeAreaView>

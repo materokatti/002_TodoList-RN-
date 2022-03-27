@@ -15,6 +15,25 @@ const App = () => {
     {id: 3, text: 'Kick', done: false},
   ]);
 
+  const onInsert = text => {
+    const nestId =
+      todos.length > 0 ? Math.max(...todos.map(todo => todo.id)) : 1;
+    const todo = {
+      id: nestId,
+      text,
+      done: false,
+    };
+
+    setTodos(todos.concat(todo));
+  };
+
+  const onToggle = id => {
+    const nextTodos = todos.map(todo =>
+      todo.id === id ? {...todo, done: !todo.done} : todo,
+    );
+    setTodos(nextTodos);
+  };
+
   return (
     <SafeAreaProvider>
       <SafeAreaView edges={['bottom']} style={styles.block}>
@@ -23,8 +42,13 @@ const App = () => {
           behavior={Platform.select({ios: 'padding', android: undefined})}
           style={styles.avoid}>
           <DateHead date={today} />
-          {todos.length === 0 ? <Empty /> : <TodoList todos={todos} />}
-          <AddTodo />
+          {todos.length === 0 ? (
+            <Empty />
+          ) : (
+            <TodoList todos={todos} onToggle={onToggle} />
+          )}
+
+          <AddTodo onInsert={onInsert} />
         </KeyboardAvoidingView>
       </SafeAreaView>
     </SafeAreaProvider>

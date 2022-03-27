@@ -1,17 +1,19 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 
-const TodoItem = ({id, text, done}) => {
+const TodoItem = ({id, text, done, onToggle}) => {
   return (
     <View style={styles.item}>
-      <View style={[styles.circle, done && styles.filled]}>
-        {done && (
-          <Image
-            source={require('../assets/icons/check_white/check_white.png')}
-            style={styles.check}
-          />
-        )}
-      </View>
+      <TouchableOpacity onPress={() => onToggle(id)}>
+        <View style={[styles.circle, done && styles.filled]}>
+          {done && (
+            <Image
+              source={require('../assets/icons/check_white/check_white.png')}
+              style={styles.check}
+            />
+          )}
+        </View>
+      </TouchableOpacity>
       <Text style={[styles.text, done && styles.lineThrough]}>{text}</Text>
     </View>
   );
@@ -23,8 +25,6 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
     alignItems: 'center',
   },
   circle: {

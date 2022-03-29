@@ -17,7 +17,7 @@ const App = () => {
 
   const onInsert = text => {
     const nestId =
-      todos.length > 0 ? Math.max(...todos.map(todo => todo.id)) : 1;
+      todos.length > 0 ? Math.max(...todos.map(todo => todo.id)) + 1 : 1;
     const todo = {
       id: nestId,
       text,
